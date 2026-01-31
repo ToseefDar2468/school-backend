@@ -14,3 +14,30 @@ model Admin {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
+
+enum InquiryStatus {
+  NEW
+  IN_PROGRESS
+  RESOLVED
+}
+
+model Inquiry {
+  id        String        @id @default(uuid())
+  name      String
+  email     String
+  message   String
+  status    InquiryStatus @default(NEW)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model Notice {
+  id            String   @id @default(uuid())
+  title         String
+  description   String
+  date          DateTime
+  isPinned      Boolean  @default(false)
+  attachmentUrl String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
