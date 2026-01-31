@@ -41,3 +41,44 @@ model Notice {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
+
+model Event {
+  id            String       @id @default(uuid())
+  title         String
+  description   String
+  date          DateTime
+  venue         String
+  coverImageUrl String
+  images        EventImage[]
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model EventImage {
+  id        String   @id @default(uuid())
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId   String
+  url       String
+  createdAt DateTime @default(now())
+
+  @@index([eventId])
+}
+
+model Album {
+  id            String       @id @default(uuid())
+  title         String
+  category      String
+  coverImageUrl String
+  images        AlbumImage[]
+  createdAt     DateTime     @default(now())
+}
+
+model AlbumImage {
+  id        String   @id @default(uuid())
+  album     Album    @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  albumId   String
+  url       String
+  createdAt DateTime @default(now())
+
+  @@index([albumId])
+}
